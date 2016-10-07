@@ -3,56 +3,71 @@
 # perform the operation on the two numbers
 # out the result
 
-def prompt(message)
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
+LANGUAGE = 'en'.freeze
+
+def prompt(key)
+  message = MESSAGES[LANGUAGE][key]
   Kernel.puts("=> #{message}")
 end
 
-def valid_number?(num)
-  num.to_i.nonzero?
+def integer?(input)
+  /^\d+$/.match(input)
+end
+
+def float?(input)
+  /\d/.match(input) && /^\d*\.?\d*$/.match(input)
+end
+
+def valid_number?(input)
+  integer?(input) || float?(input)
 end
 
 def operation_to_message(op)
-  case op
-  when '1'
-    'Adding'
-  when '2'
-    'Subtracting'
-  when '3'
-    'Multiplying'
-  when '4'
-    'Dividing'
-  end
+  word = case op
+         when '1'
+           'Adding'
+         when '2'
+           'Subtracting'
+         when '3'
+           'Multiplying'
+         when '4'
+           'Dividing'
+         end
+  word
 end
 
-prompt('Welcome to Calculator! Enter your name:')
+prompt('welcome')
 
 name = ''
 loop do
   name = Kernel.gets.chomp
 
   break unless name.empty?
-  prompt('Make sure to use a valid name.')
+  prompt('valid_name')
 end
 
-prompt("Hi #{name}")
+puts("Hi #{name}")
 
 loop do # main loop
   number1 = ''
   loop do
-    prompt("What's the first number?'")
+    prompt('first_number')
     number1 = Kernel.gets.chomp
 
     break if valid_number?(number1)
-    prompt("Hmm... that doesn't look like a valid number")
+    prompt('not_valid_number')
   end
 
   number2 = ''
   loop do
-    prompt("What's the second number?")
+    prompt('second_number')
     number2 = Kernel.gets.chomp
 
     break if valid_number?(number2)
-    prompt("Hmm... that doesn't look like a valid number")
+    prompt('not_valid_number')
   end
 
   operator_prompt = <<-MSG
@@ -63,17 +78,17 @@ loop do # main loop
     4) divide
   MSG
 
-  prompt(operator_prompt)
+  puts(operator_prompt)
 
   operator = ''
   loop do
     operator = Kernel.gets.chomp
 
     break if %w(1 2 3 4).include?(operator)
-    prompt('Must choose 1, 2, 3 or 4')
+    prompt('not_valid_operator')
   end
 
-  prompt("#{operation_to_message(operator)} the two numbers...")
+  puts("=> #{operation_to_message(operator)} the two numbers...")
 
   result = case operator
            when '1'
@@ -85,11 +100,11 @@ loop do # main loop
            when '4'
              number1.to_f / number2.to_f
            end
-  prompt("The result is #{result}")
+  puts("=> The result is #{result}")
 
-  prompt('Do you want to perform another calculation? (Y to calculate again)')
+  prompt('calculate_again')
   answer = Kernel.gets.chomp
   break unless answer.downcase.start_with?('y')
 end
 
-prompt('Thank you for using the calculator. Good bye')
+prompt('thanks')

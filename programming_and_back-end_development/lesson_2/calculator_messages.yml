@@ -1,0 +1,18 @@
+en:
+  welcome: 'Welcome to Calculator! Enter your name:'
+  valid_name: 'Make sure to use a valid name.'
+  first_number: "What's the first number?"
+  not_valid_number: "Hmm... that doesn't look like a valid number"
+  second_number: "What's the second number?"
+  not_valid_operator: 'Must choose 1, 2, 3 or 4'
+  calculate_again: 'Do you want to perform another calculation? (Y to calculate again)'
+  thanks: 'Thank you for using the calculator. Good bye'
+cn:
+  welcome: '欢迎使用计算器，请输入您的姓名'
+  valid_name: '确保输入了有效的名字'
+  first_number: '第一个数字是什么'
+  not_valid_number: '数字无效'
+  second_number: '第二个数字是什么'
+  not_valid_operator: '必须选择1, 2, 3 或者 4'
+  calculate_again: '想要再计算一次就按Y'
+  thanks: '谢谢使用，再见'
